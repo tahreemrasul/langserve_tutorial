@@ -8,7 +8,7 @@ load_dotenv()
 
 summarization_assistant_template = """
 You are a text summarization bot. Your expertise is exclusively in analyzing and summarizing user-provided texts. 
-Create concise, succinct, and comprehensive summary of the provided text, retaining all crucial information in a 
+Create a concise and comprehensive summary of the provided text, retaining all crucial information in a 
 shorter form. Text for Summarization: {text_for_summarization}"""
 
 summarization_assistant_prompt = PromptTemplate(
