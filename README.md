@@ -21,12 +21,12 @@ Set Up a Conda Environment (Recommended)
 * If you don't have Conda, install it first.
 * Create a new Conda environment:
 ```shell
-   conda create -n chatbot_langchain python=3.8
+   conda create -n summarization_bot python=3.8
 ```
 
 * Activate the environment:
 ```shell
-   conda activate chatbot_langchain
+   conda activate summarization_bot
 ```
 
 Install Dependencies
