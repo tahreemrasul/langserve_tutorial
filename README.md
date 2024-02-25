@@ -1,50 +1,51 @@
-# summarization_bot_langserve
+# How to deploy LangChain apps using LangServe
 
-## Installation
+You can read in detail in this [medium article]()
 
-Install the LangChain CLI if you haven't yet
+## Clone Repository
 
-```bash
+```shell
+   git clone git@github.com:tahreemrasul/langserve_tutorial.git
+   cd ./langserve_tutorial
+```
+
+## Installation & Setup
+
+Install the LangChain CLI using
+
+```shell
 pip install -U langchain-cli
 ```
 
-## Adding packages
-
-```bash
-# adding packages from 
-# https://github.com/langchain-ai/langchain/tree/master/templates
-langchain app add $PROJECT_NAME
-
-# adding custom GitHub repo packages
-langchain app add --repo $OWNER/$REPO
-# or with whole git string (supports other git providers):
-# langchain app add git+https://github.com/hwchase17/chain-of-verification
-
-# with a custom api mount point (defaults to `/{package_name}`)
-langchain app add $PROJECT_NAME --api_path=/my/custom/path/rag
-```
-
-Note: you remove packages by their api path
-
-```bash
-langchain app remove my/custom/path/rag
-```
-
-## Setup LangSmith (Optional)
-LangSmith will help us trace, monitor and debug LangChain applications. 
-LangSmith is currently in private beta, you can sign up [here](https://smith.langchain.com/). 
-If you don't have access, you can skip this section
-
-
+Set Up a Conda Environment (Recommended)
+* If you don't have Conda, install it first.
+* Create a new Conda environment:
 ```shell
-export LANGCHAIN_TRACING_V2=true
-export LANGCHAIN_API_KEY=<your-api-key>
-export LANGCHAIN_PROJECT=<your-project>  # if not specified, defaults to "default"
+   conda create -n chatbot_langchain python=3.8
+```
+
+* Activate the environment:
+```shell
+   conda activate chatbot_langchain
+```
+
+Install Dependencies
+* Install the required packages using the `requirements.txt` file:
+```shell
+   pip install -r requirements.txt
+```
+
+Set Up Your OpenAI API Key
+* Create a .env file in the root directory of the project.
+* Add your OpenAI API key to the `.env` file:
+```shell
+   OPENAI_API_KEY='Your-OpenAI-API-Key-Here'
 ```
 
 ## Launch LangServe
 
-```bash
+Run the application locally by navigating into main directory and:
+```shell
 langchain serve
 ```
 
@@ -77,4 +78,13 @@ We also expose port 8080 with the `-p 8080:8080` option.
 ```shell
 docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
 ```
-# langserve_tutorial
+
+## Running in GCP Cloud Run
+Cloud Run in GCP is a managed compute platform that lets you run containers directly on top of Google's 
+scalable infrastructure. You can run on GCP using either the source code or through the Dockerfile. For running with 
+source code, use:
+```shell
+gcloud run deploy SERVICE --source . --port 8080 --project PROJECT_ID --allow-unauthenticated --region REGION 
+--set-env-vars=OPENAI_API_KEY=$(OPENAI_API_KEY)
+```
+
